@@ -1,0 +1,43 @@
+{{ template "_header.html" .}}
+<div>
+    <div style="background: white; margin-bottom: 3%; padding-bottom: 1%;">
+        <form class="row g-3" action="/article" method="get">
+            <div class="col-auto">
+                <h2>最新のニュース</h2>
+            </div>
+            <div class="col-auto">
+                <input name="keyword" type="text" class="form-control">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">検索</button>
+            </div>
+        </form>
+        <form action="/logout" method="post">
+            <button class="btn btn-link" type="submit">ログアウト</button>
+        </form>
+    </div>
+    <div style="background: white; padding: 1%; ">
+        {{ range .articles }}
+        <div class="card mb-3" style="width: 45rem;">
+            <img class="card-img-top" src="{{ .UrlToImage }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ .Title }}</h5>
+                <p class="card-text">{{ .Description }}</p>
+                <p class="card-text"><small class="text-muted">{{ .Date }}{{ .Author }}<a
+                            href="{{ .Url }}">続きを読む</a></small></p>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+</div>
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 20vw;
+        object-fit: cover;
+    }
+</style>
+</body>
+
+</html>

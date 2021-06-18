@@ -2,19 +2,43 @@ package controller
 
 import (
 	"gin_app/service"
-	"log"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
 func LoginForm(c *gin.Context) {
-	c.HTML(http.StatusOK, "login.html", gin.H{})
+	c.HTML(http.StatusOK, "login.html", gin.H{
+		"message": "",
+	})
 }
 
 func Login(c *gin.Context) {
+
 	var loginService = service.LoginService{}
 	var user = loginService.Login(c.PostForm("userid"), c.PostForm("password"))
-	log.Println(user)
+
+	if user.UserId == "" || user.Name == "" {
+		c.HTML(http.StatusUnauthorized, "login.html", gin.H{
+			"message": "ログインに失敗しました",
+		})
+	} else {
+		var session = sessions.Default(c)
+		session.Set("UserId", user.UserId)
+		session.Set("Name", user.Name)
+		session.Save()
+		c.Redirect(http.StatusMovedPermanently, "/article")
+	}
+
+}
+
+func Logout(c *gin.Context) {
+
+	var session = sessions.Default(c)
+	session.Clear()
+	session.Save()
+
 	c.Redirect(http.StatusMovedPermanently, "/login")
+
 }

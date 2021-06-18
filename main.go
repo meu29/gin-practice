@@ -27,17 +27,22 @@ func main() {
 		loginRouter.POST("/", controller.Login)
 	}
 
+	var logoutRouter = router.Group("/logout")
+	{
+		logoutRouter.POST("/", controller.Logout)
+	}
+
 	var signupRouter = router.Group("/signup")
 	{
 		signupRouter.GET("/", controller.SignUpForm)
 		signupRouter.POST("/", controller.Signup)
 	}
 
-	var homeRouter = router.Group("/home")
+	var articleRouter = router.Group("/article")
 	/* ルートルータ(ここでは変数router)でセッションチェックミドルウェアを読み込むと永久にリダイレクトし続けるので注意 */
-	homeRouter.Use(middleware.SessionCheck())
+	articleRouter.Use(middleware.SessionCheck())
 	{
-		homeRouter.GET("/", controller.Home)
+		articleRouter.GET("/", controller.GetArticles)
 	}
 
 	router.Run(":8000")

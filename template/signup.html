@@ -1,19 +1,29 @@
 {{ template "_header.html" .}}
-        <div>
-            <div>
-                <form action="/signup" method="post">
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">ユーザー名</label>
-                      <input name="userid" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">パスワード</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    <button type="submit" class="btn btn-primary">新規登録</button>
-                  </form>
-            </div>
-            <button class="btn btn-link" onclick="location.href='/login'">ログイン</button>
+<div>
+  <div class="container">
+    <div class="card card-container">
+      <form action="/signup" method="post">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">ユーザー名</label>
+          <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
-    </body>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">パスワード</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary">新規登録</button>
+      </form>
+      <p>{{ .message }}</p>
+      <!-- formの中だと/homeに遷移してしまう -->
+      <button class="btn btn-link" onclick="location.href='/login'">ログイン</button>
+    </div>
+  </div>
+</div>
+<style>
+  .card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+  }
+</style>
+</body>
 </html>

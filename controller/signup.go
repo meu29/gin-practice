@@ -13,7 +13,7 @@ func SignUpForm(c *gin.Context) {
 
 func Signup(c *gin.Context) {
 	var signupService = service.SignupService{}
-	var userid = signupService.Signup(c.PostForm("userid"), c.PostForm("password"))
+	var userid = signupService.Signup(c.PostForm("name"), c.PostForm("password"))
 	c.HTML(http.StatusCreated, "success.html", gin.H{
 		"userid": userid,
 	})
