@@ -11,6 +11,7 @@ import (
 func LoginForm(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.html", gin.H{
 		"message": "",
+		//"loginState": "false",
 	})
 }
 
