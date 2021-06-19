@@ -45,6 +45,12 @@ func main() {
 		articleRouter.GET("/", controller.GetArticles)
 	}
 
+	var likeRouter = router.Group("/like")
+	likeRouter.Use((middleware.SessionCheck()))
+	{
+		likeRouter.POST("/", controller.AddLike())
+	}
+
 	router.Run(":8000")
 
 }

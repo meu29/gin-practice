@@ -16,7 +16,10 @@ func GetArticles(c *gin.Context) {
 	/* これらの値はhtmlが読み込んでいる別のhtml(今回は_header.html)も使用できる */
 	c.HTML(http.StatusOK, "article.html", gin.H{
 		"articles":   articles.Articles,
-		"pages":      articles.Pages,
+		"beforePage": articles.BeforePage,
+		"nowPage":    articles.NowPage,
+		"afterPage":  articles.AfterPage,
+		"maxPage":    articles.MaxPage,
 		"loginState": true,
 	})
 

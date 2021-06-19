@@ -14,8 +14,11 @@ import (
 type ArticleService struct{}
 
 type GetArticlesResult struct {
-	Articles []model.Article
-	Pages    int
+	Articles   []model.Article
+	BeforePage int
+	NowPage    int
+	AfterPage  int
+	MaxPage    int
 }
 
 func (a *ArticleService) GetArticles(keyword string, page string) GetArticlesResult {
@@ -73,6 +76,12 @@ func (a *ArticleService) GetArticles(keyword string, page string) GetArticlesRes
 
 	}
 
-	return GetArticlesResult{Articles: filterd_articles, Pages: int(math.Ceil(float64(len(articles)) / 9.0))}
+	return GetArticlesResult{
+		Articles:   filterd_articles,
+		BeforePage: pageNumber - 1,
+		NowPage:    pageNumber,
+		AfterPage:  pageNumber + 1,
+		MaxPage:    int(math.Ceil(float64(len(articles)) / 9.0)),
+	}
 
 }
